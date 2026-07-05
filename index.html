@@ -1317,6 +1317,7 @@
     <button type="button" data-nav="home" onclick="backToHome()">Home</button>
     <button type="button" data-nav="quote" onclick="openPlaceholderSection('quote')">Generate quote</button>
     <button type="button" data-nav="form" onclick="openBookingForm(true)">Request a booking</button>
+    <button type="button" data-nav="requests" onclick="openBookingStatusView()">Pending bookings</button>
     <button type="button" data-nav="templates" onclick="openTemplatesView()">Templates</button>
     <button type="button" data-nav="active" onclick="openPreviousBookingsView('active')">Active Bookings</button>
     <button type="button" data-nav="history" onclick="openPreviousBookingsView('history')">History</button>
@@ -1571,7 +1572,7 @@
 
     <section id="requests-view" class="panel hidden">
       <div class="form-head">
-        <h1>View Booking requests</h1>
+        <h1>Pending bookings</h1>
       </div>
       <div class="lookup-body">
         <div class="form-actions" style="margin-bottom:10px;">
