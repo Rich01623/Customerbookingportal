@@ -57,6 +57,24 @@
       gap: 18px;
     }
 
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .header-company-logo {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,0.55);
+      padding: 4px;
+      object-fit: contain;
+    }
+
     .brand {
       display: flex;
       flex-direction: column;
@@ -92,12 +110,47 @@
     }
 
     .home-panel {
-      min-height: 220px;
+      --home-bg-opacity: 0.24;
+      --home-bg-overlay: 0.68;
+      position: relative;
+      min-height: calc(100vh - 142px);
       display: grid;
       align-content: center;
       justify-items: center;
       text-align: center;
       gap: 12px;
+      isolation: isolate;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .home-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: url("Pic-24-1.jpg") center / cover no-repeat;
+      opacity: var(--home-bg-opacity);
+    }
+
+    .home-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(255, 255, 255, var(--home-bg-overlay));
+    }
+
+    .home-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-company-logo {
+      max-width: min(320px, 72vw);
+      max-height: 150px;
+      object-fit: contain;
+      margin-bottom: 2px;
     }
 
     .home-panel h1,
@@ -295,6 +348,28 @@
       text-decoration: underline;
     }
 
+    .logo-preview-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      padding: 10px;
+      margin-top: 8px;
+    }
+
+    .settings-logo-preview {
+      width: 120px;
+      height: 66px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      padding: 6px;
+      object-fit: contain;
+    }
+
     .lookup-row {
       display: grid;
       grid-template-columns: minmax(220px, 1fr) auto;
@@ -332,6 +407,7 @@
     .booking-result-title {
       font-weight: 900;
       color: var(--ink);
+      flex: 1 1 180px;
     }
 
     .status-pill {
@@ -364,9 +440,10 @@
 
     .result-actions {
       display: flex;
-      flex-direction: column;
       gap: 8px;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
     }
 
     .result-actions button.previous-pill {
@@ -419,12 +496,22 @@
 
     .booking-slim-row {
       display: grid;
-      grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(150px, 1.2fr) minmax(120px, 1fr) minmax(145px, 1.1fr);
-      min-width: 720px;
+      grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(150px, 1.2fr) minmax(120px, 1fr) minmax(135px, 1fr) minmax(135px, 1fr) 54px;
+      min-width: 910px;
       border-top: 1px solid #e5e7eb;
       color: #334155;
       font-size: 0.78rem;
       font-weight: 750;
+    }
+
+    .booking-slim-row.clickable {
+      cursor: pointer;
+    }
+
+    .booking-slim-row.clickable:hover,
+    .booking-slim-row.expanded {
+      background: #fff7f7;
+      box-shadow: inset 4px 0 0 var(--frost-red);
     }
 
     .booking-slim-row.header {
@@ -442,6 +529,55 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .booking-slim-action-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 8px;
+    }
+
+    .booking-slim-eye-btn {
+      width: 34px;
+      height: 28px;
+      border: 1px solid rgba(179, 18, 32, 0.28);
+      border-radius: 999px;
+      background: rgba(179, 18, 32, 0.08);
+      color: var(--frost-red);
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .booking-slim-eye-btn:hover {
+      background: var(--frost-red);
+      color: #fff;
+    }
+
+    .booking-slim-detail {
+      min-width: 910px;
+      padding: 12px;
+      border-top: 1px solid #fecaca;
+      background: #fffafa;
+    }
+
+    .booking-slim-detail-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .booking-slim-detail-title {
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 900;
     }
 
     .template-tabs {
@@ -788,7 +924,7 @@
 
     .pod-thumbnail {
       width: 100%;
-      margin: 10px 0 12px;
+      margin: 12px 0 0;
       padding: 10px;
       display: flex;
       align-items: center;
@@ -1269,6 +1405,9 @@
       .app-nav:not(.hidden) + main {
         padding-left: 0;
       }
+      .home-panel {
+        min-height: calc(100vh - 220px);
+      }
       .app-nav button { text-align: center; }
       .form-head { align-items: stretch; }
       .job-mode-buttons, .tabs, .form-actions { width: 100%; }
@@ -1302,9 +1441,12 @@
 <body>
   <header id="app-header">
     <div class="topbar">
-      <div class="brand">
-        <strong>FROST Transport</strong>
-        <span>Client Booking Portal</span>
+      <div class="brand-wrap">
+        <img id="header-company-logo" class="header-company-logo hidden" alt="Company logo">
+        <div class="brand">
+          <strong>FROST Transport</strong>
+          <span>Client Booking Portal</span>
+        </div>
       </div>
       <div style="display:flex; align-items:center; gap:10px;">
         <div class="status" id="connection-status"></div>
@@ -1351,6 +1493,7 @@
     </section>
 
     <section id="home-view" class="panel home-panel hidden">
+      <img id="home-company-logo" class="home-company-logo hidden" alt="Company logo">
       <h1 id="home-welcome">Welcome, today's date is --/--/---- and it is currently --:--</h1>
     </section>
 
@@ -1815,14 +1958,6 @@
                   <span class="quote-switch"><input type="checkbox" id="quote-parking" onchange="quoteUpdate();"><span class="quote-slider"></span></span>
                 </label>
 
-                <div class="form-group">
-                  <label for="quote-job-ref">Job Ref</label>
-                  <input type="text" id="quote-job-ref" placeholder="Optional reference">
-                </div>
-                <div class="form-group">
-                  <label for="quote-job-notes">Notes</label>
-                  <textarea id="quote-job-notes" rows="3" placeholder="Instructions..."></textarea>
-                </div>
               </section>
             </div>
 
@@ -1854,6 +1989,18 @@
         <div class="form-group">
           <label for="settings_display_name">Personalised username</label>
           <input type="text" id="settings_display_name" autocomplete="name" placeholder="Enter the name you would like us to use">
+        </div>
+        <div class="form-group">
+          <label for="settings_company_logo">Company Logo</label>
+          <input type="file" id="settings_company_logo" accept="image/*">
+          <div class="logo-preview-panel">
+            <img id="settings_company_logo_preview" class="settings-logo-preview hidden" alt="Company logo preview">
+            <button type="button" class="action-btn secondary" id="settings-clear-logo-btn" onclick="clearCompanyLogo()">Remove logo</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="settings_home_bg_intensity">Welcome screen image intensity: <span id="settings_home_bg_intensity_value">35%</span></label>
+          <input type="range" id="settings_home_bg_intensity" min="0" max="100" step="5" value="35">
         </div>
         <div class="form-actions">
           <button type="button" class="action-btn secondary" onclick="backToHome()">Back</button>
@@ -1977,7 +2124,14 @@
     const previousSearchButton = document.getElementById("previous-search-btn");
     const connectionStatus = document.getElementById("connection-status");
     const homeWelcome = document.getElementById("home-welcome");
+    const headerCompanyLogo = document.getElementById("header-company-logo");
+    const homeCompanyLogo = document.getElementById("home-company-logo");
     const settingsDisplayName = document.getElementById("settings_display_name");
+    const settingsCompanyLogoInput = document.getElementById("settings_company_logo");
+    const settingsCompanyLogoPreview = document.getElementById("settings_company_logo_preview");
+    const settingsClearLogoButton = document.getElementById("settings-clear-logo-btn");
+    const settingsHomeBgIntensity = document.getElementById("settings_home_bg_intensity");
+    const settingsHomeBgIntensityValue = document.getElementById("settings_home_bg_intensity_value");
     const settingsSaveButton = document.getElementById("settings-save-btn");
     const settingsStatus = document.getElementById("settings-status");
     const templateForm = document.getElementById("template-form");
@@ -1998,10 +2152,13 @@
     let lastLookupEmail = "";
     let currentUserEmail = "";
     let currentUserName = "";
+    let currentCompanyLogoDataUrl = "";
+    let currentHomeBgIntensity = 35;
     let homeClockTimer = null;
     let previousBookingRows = [];
     let previousBookingMode = "active";
     let previousDisplayMode = "cards";
+    let expandedSlimBookingId = "";
     let previousSortDirection = "desc";
     let previousSearchTerm = "";
     let currentTemplates = [];
@@ -2108,6 +2265,120 @@
       return titleCaseName(email.split("@")[0]) || "there";
     }
 
+    function getClientCompanyLogo(user) {
+      const metadata = user && user.user_metadata ? user.user_metadata : {};
+      return String(metadata.company_logo_data_url || "").trim();
+    }
+
+    function clampHomeBgIntensity(value) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return 35;
+      return Math.max(0, Math.min(100, Math.round(number)));
+    }
+
+    function getClientHomeBgIntensity(user) {
+      const metadata = user && user.user_metadata ? user.user_metadata : {};
+      return clampHomeBgIntensity(metadata.home_bg_intensity ?? 35);
+    }
+
+    function setLogoImage(element, dataUrl) {
+      if (!element) return;
+      if (dataUrl) {
+        element.src = dataUrl;
+        element.classList.remove("hidden");
+      } else {
+        element.removeAttribute("src");
+        element.classList.add("hidden");
+      }
+    }
+
+    function applyCompanyLogo() {
+      setLogoImage(headerCompanyLogo, currentCompanyLogoDataUrl);
+      setLogoImage(homeCompanyLogo, currentCompanyLogoDataUrl);
+      setLogoImage(settingsCompanyLogoPreview, currentCompanyLogoDataUrl);
+      if (settingsClearLogoButton) settingsClearLogoButton.disabled = !currentCompanyLogoDataUrl;
+    }
+
+    function applyHomeBackgroundIntensity() {
+      const intensity = clampHomeBgIntensity(currentHomeBgIntensity);
+      currentHomeBgIntensity = intensity;
+      const imageOpacity = 0.08 + (intensity / 100) * 0.52;
+      const overlayOpacity = 0.84 - (intensity / 100) * 0.48;
+
+      if (homeView) {
+        homeView.style.setProperty("--home-bg-opacity", imageOpacity.toFixed(2));
+        homeView.style.setProperty("--home-bg-overlay", overlayOpacity.toFixed(2));
+      }
+      if (settingsHomeBgIntensity) settingsHomeBgIntensity.value = String(intensity);
+      if (settingsHomeBgIntensityValue) settingsHomeBgIntensityValue.textContent = intensity + "%";
+    }
+
+    function resizeCompanyLogoFile(file) {
+      return new Promise((resolve, reject) => {
+        if (!file || !String(file.type || "").startsWith("image/")) {
+          reject(new Error("Please choose an image file."));
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error("Could not read that logo file."));
+        reader.onload = () => {
+          const img = new Image();
+          img.onerror = () => reject(new Error("Could not load that logo image."));
+          img.onload = () => {
+            const maxWidth = 320;
+            const maxHeight = 160;
+            const scale = Math.min(maxWidth / img.width, maxHeight / img.height, 1);
+            const width = Math.max(1, Math.round(img.width * scale));
+            const height = Math.max(1, Math.round(img.height * scale));
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL("image/png");
+            if (dataUrl.length > 250000) {
+              reject(new Error("That logo is still too large after resizing. Please choose a smaller logo image."));
+              return;
+            }
+            resolve(dataUrl);
+          };
+          img.src = String(reader.result || "");
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleCompanyLogoUpload(event) {
+      const file = event && event.target && event.target.files ? event.target.files[0] : null;
+      if (!file) return;
+
+      setSettingsStatus("Preparing logo...", "warn");
+      try {
+        currentCompanyLogoDataUrl = await resizeCompanyLogoFile(file);
+        applyCompanyLogo();
+        setSettingsStatus("Logo ready. Click Save Settings to keep it.", "warn");
+      } catch (error) {
+        const message = error && error.message ? error.message : String(error);
+        if (settingsCompanyLogoInput) settingsCompanyLogoInput.value = "";
+        setSettingsStatus(message, "error");
+      }
+    }
+
+    function handleHomeBgIntensityInput() {
+      currentHomeBgIntensity = clampHomeBgIntensity(settingsHomeBgIntensity && settingsHomeBgIntensity.value);
+      applyHomeBackgroundIntensity();
+      setSettingsStatus("Image intensity ready. Click Save Settings to keep it.", "warn");
+    }
+
+    function clearCompanyLogo() {
+      currentCompanyLogoDataUrl = "";
+      if (settingsCompanyLogoInput) settingsCompanyLogoInput.value = "";
+      applyCompanyLogo();
+      setSettingsStatus("Logo removed. Click Save Settings to keep this change.", "warn");
+    }
+
     function formatTwoDigits(value) {
       return String(value).padStart(2, "0");
     }
@@ -2153,6 +2424,8 @@
       portalAccessCheckToken += 1;
       currentUserEmail = "";
       currentUserName = "";
+      currentCompanyLogoDataUrl = "";
+      currentHomeBgIntensity = 35;
       clientAccountProfileEmail = "";
       clientAccountProfile = null;
       currentEditRequest = null;
@@ -2169,6 +2442,8 @@
       signOutButton.classList.add("hidden");
       connectionStatus.textContent = "Sign in";
       setActiveNav("");
+      applyCompanyLogo();
+      applyHomeBackgroundIntensity();
     }
 
     async function getAuthorisedClientProfile(email) {
@@ -2228,6 +2503,8 @@
 
       currentUserEmail = String(session && session.user && session.user.email || "").trim().toLowerCase();
       currentUserName = getClientDisplayName(session && session.user);
+      currentCompanyLogoDataUrl = getClientCompanyLogo(session && session.user);
+      currentHomeBgIntensity = getClientHomeBgIntensity(session && session.user);
       loginView.classList.add("hidden");
       document.body.classList.remove("login-screen");
       appHeader.classList.remove("hidden");
@@ -2235,6 +2512,8 @@
       signOutButton.classList.remove("hidden");
       connectionStatus.textContent = currentUserEmail || "Signed in";
       setLoginStatus("", "");
+      applyCompanyLogo();
+      applyHomeBackgroundIntensity();
       startHomeClock();
       clientAccountProfileEmail = currentUserEmail;
       clientAccountProfile = authorisedProfile;
@@ -2287,6 +2566,7 @@
 
     function openPreviousBookingsView(mode = "active") {
       previousBookingMode = mode === "history" ? "history" : "active";
+      expandedSlimBookingId = "";
       rememberView(previousBookingMode);
       hideAppViews();
       previousView.classList.remove("hidden");
@@ -2375,6 +2655,9 @@
         settingsDisplayName.value = currentUserName === "there" ? "" : currentUserName;
         settingsDisplayName.focus();
       }
+      if (settingsCompanyLogoInput) settingsCompanyLogoInput.value = "";
+      applyCompanyLogo();
+      applyHomeBackgroundIntensity();
     }
 
     async function saveDisplayName() {
@@ -2394,11 +2677,15 @@
           data: {
             display_name: displayName,
             full_name: displayName,
-            name: displayName
+            name: displayName,
+            company_logo_data_url: currentCompanyLogoDataUrl,
+            home_bg_intensity: currentHomeBgIntensity
           }
         });
         if (error) throw error;
         currentUserName = displayName;
+        applyCompanyLogo();
+        applyHomeBackgroundIntensity();
         updateHomeWelcome();
         setSettingsStatus("Settings saved.", "ok");
       } catch (error) {
@@ -2985,11 +3272,9 @@
       const notes = [];
       const total = getQuoteTotalValue();
       const surcharges = getQuoteSurchargeNotes();
-      const quoteNotes = String(quoteField("quote-job-notes") && quoteField("quote-job-notes").value || "").trim();
 
       if (total) notes.push("Online quote generated: GBP " + total.toFixed(2) + " ex VAT");
       if (surcharges.length) notes.push("Quote surcharges: " + surcharges.join(", "));
-      if (quoteNotes) notes.push("Quote notes: " + quoteNotes);
       return notes.join("\n");
     }
 
@@ -3129,7 +3414,7 @@
     }
 
     function quoteResetCalculator() {
-      ["quote-pickup", "quote-delivery", "quote-col-date", "quote-del-date", "quote-job-ref", "quote-job-notes"].forEach((id) => {
+      ["quote-pickup", "quote-delivery", "quote-col-date", "quote-del-date"].forEach((id) => {
         const field = quoteField(id);
         if (field) field.value = "";
       });
@@ -3987,10 +4272,11 @@
         const editButton = canEditPreviousBooking(row) ? `<button type="button" class="edit-result-btn previous-pill" onclick="editPreviousBooking('${escapeHtml(row.id)}')">Edit</button>` : "";
         const progressButton = `<button type="button" class="edit-result-btn previous-pill" onclick="openProgressModal('${escapeHtml(row.id)}')">View Progress</button>`;
         const price = String(row.total_price || "").toUpperCase() === "PFJ" ? "PFJ" : (row.total_price ? "&pound;" + escapeHtml(row.total_price) : "-");
+        const ftsNumber = getPreviousFtsNumber(row) || "FTS pending";
         return `
           <div class="booking-result ${statusClass}">
             <div class="booking-result-head">
-              <span class="booking-result-title">${escapeHtml(row.customer_name || "Previous booking")}</span>
+              <span class="booking-result-title">${escapeHtml(ftsNumber)}</span>
               <span class="result-actions">
                 <span class="status-pill ${statusClass} previous-pill">${escapeHtml(statusText)}</span>
                 ${podButton}
@@ -3998,7 +4284,6 @@
                 ${progressButton}
               </span>
             </div>
-            ${podThumbnail}
             <div class="booking-result-grid">
               <div><b>Collection:</b> ${escapeHtml(row.coll_postcode || "-")}</div>
               <div><b>Delivery:</b> ${escapeHtml(row.del_postcode || "-")}</div>
@@ -4007,10 +4292,10 @@
               <div><b>Vehicle:</b> ${escapeHtml(row.vehicle_type || "-")}</div>
               <div><b>Price:</b> ${price}</div>
               <div><b>Customer ref:</b> ${escapeHtml(row.customers_own_invoice_number || "-")}</div>
-              <div><b>CX number:</b> ${escapeHtml(row.cx_number || "-")}</div>
               <div><b>Collection ref:</b> ${escapeHtml(row.coll_ref || "-")}</div>
               <div><b>Delivery ref:</b> ${escapeHtml(row.del_ref || "-")}</div>
             </div>
+            ${podThumbnail}
           </div>`;
       }).join("");
     }
@@ -4028,17 +4313,54 @@
             <div class="booking-slim-cell">Delivery postcode</div>
             <div class="booking-slim-cell">Customer ref</div>
             <div class="booking-slim-cell">FTS number</div>
-            <div class="booking-slim-cell">Date</div>
+            <div class="booking-slim-cell">Col date</div>
+            <div class="booking-slim-cell">Del Date</div>
+            <div class="booking-slim-cell" aria-label="Progress"></div>
           </div>
-          ${rows.map((row) => `
-            <div class="booking-slim-row">
+          ${rows.map((row) => {
+            const rowId = String(row.id || "");
+            const isExpanded = rowId && String(expandedSlimBookingId) === rowId;
+            const completed = isPreviousBookingCompleted(row);
+            const statusText = getPreviousStatusLabel(row);
+            const statusClass = completed ? "accepted" : "";
+            const podUrl = getPreviousPodUrl(row);
+            const podThumbnail = renderPreviousPodThumbnail(podUrl);
+            const price = String(row.total_price || "").toUpperCase() === "PFJ" ? "PFJ" : (row.total_price ? "&pound;" + escapeHtml(row.total_price) : "-");
+            const ftsNumber = getPreviousFtsNumber(row) || "FTS pending";
+            const detail = isExpanded ? `
+              <div class="booking-slim-detail">
+                <div class="booking-slim-detail-head">
+                  <span class="booking-slim-detail-title">${escapeHtml(ftsNumber)}</span>
+                  <span class="status-pill ${statusClass} previous-pill">${escapeHtml(statusText)}</span>
+                </div>
+                <div class="booking-result-grid">
+                  <div><b>Collection:</b> ${escapeHtml(row.coll_postcode || "-")}</div>
+                  <div><b>Delivery:</b> ${escapeHtml(row.del_postcode || "-")}</div>
+                  <div><b>Collection time:</b> ${formatDisplayDate(row.coll_datetime || row.collection_datetime)}</div>
+                  <div><b>Delivery time:</b> ${formatDisplayDate(row.del_datetime || row.delivery_datetime)}</div>
+                  <div><b>Vehicle:</b> ${escapeHtml(row.vehicle_type || "-")}</div>
+                  <div><b>Price:</b> ${price}</div>
+                  <div><b>Customer ref:</b> ${escapeHtml(row.customers_own_invoice_number || "-")}</div>
+                  <div><b>Collection ref:</b> ${escapeHtml(row.coll_ref || "-")}</div>
+                  <div><b>Delivery ref:</b> ${escapeHtml(row.del_ref || "-")}</div>
+                </div>
+                ${podThumbnail}
+              </div>` : "";
+
+            return `
+            <div class="booking-slim-row clickable ${isExpanded ? "expanded" : ""}" role="button" tabindex="0" aria-expanded="${isExpanded ? "true" : "false"}" onclick="toggleSlimBookingDetails('${escapeHtml(rowId)}')" onkeydown="handleSlimBookingRowKey(event, '${escapeHtml(rowId)}')">
               <div class="booking-slim-cell" title="${escapeHtml(row.coll_postcode || "-")}">${escapeHtml(row.coll_postcode || "-")}</div>
               <div class="booking-slim-cell" title="${escapeHtml(row.del_postcode || "-")}">${escapeHtml(row.del_postcode || "-")}</div>
               <div class="booking-slim-cell" title="${escapeHtml(getPreviousCustomerReference(row) || "-")}">${escapeHtml(getPreviousCustomerReference(row) || "-")}</div>
               <div class="booking-slim-cell" title="${escapeHtml(getPreviousFtsNumber(row) || "-")}">${escapeHtml(getPreviousFtsNumber(row) || "-")}</div>
-              <div class="booking-slim-cell" title="${formatDisplayDate(getPreviousBookingDisplayDate(row))}">${formatDisplayDate(getPreviousBookingDisplayDate(row))}</div>
+              <div class="booking-slim-cell" title="${formatDisplayDate(row.coll_datetime || row.collection_datetime)}">${formatDisplayDate(row.coll_datetime || row.collection_datetime)}</div>
+              <div class="booking-slim-cell" title="${formatDisplayDate(row.del_datetime || row.delivery_datetime)}">${formatDisplayDate(row.del_datetime || row.delivery_datetime)}</div>
+              <div class="booking-slim-action-cell">
+                <button type="button" class="booking-slim-eye-btn" aria-label="View progress" title="View progress" onclick="event.stopPropagation(); openProgressModal('${escapeHtml(rowId)}')">&#128065;</button>
+              </div>
             </div>
-          `).join("")}
+            ${detail}`;
+          }).join("")}
         </div>`;
     }
 
@@ -4075,6 +4397,7 @@
 
     function clearPreviousSearch() {
       previousSearchTerm = "";
+      expandedSlimBookingId = "";
       if (previousSearchInput) previousSearchInput.value = "";
       refreshPreviousBookingDisplay();
     }
@@ -4086,7 +4409,21 @@
 
     function togglePreviousDisplayMode() {
       previousDisplayMode = previousDisplayMode === "slim" ? "cards" : "slim";
+      expandedSlimBookingId = "";
       refreshPreviousBookingDisplay();
+    }
+
+    function toggleSlimBookingDetails(id) {
+      const cleanId = String(id || "");
+      if (!cleanId) return;
+      expandedSlimBookingId = String(expandedSlimBookingId) === cleanId ? "" : cleanId;
+      refreshPreviousBookingDisplay();
+    }
+
+    function handleSlimBookingRowKey(event, id) {
+      if (!event || (event.key !== "Enter" && event.key !== " ")) return;
+      event.preventDefault();
+      toggleSlimBookingDetails(id);
     }
 
     if (previousSearchInput) {
@@ -4096,6 +4433,14 @@
           applyPreviousBookingFilters();
         }
       });
+    }
+
+    if (settingsCompanyLogoInput) {
+      settingsCompanyLogoInput.addEventListener("change", handleCompanyLogoUpload);
+    }
+
+    if (settingsHomeBgIntensity) {
+      settingsHomeBgIntensity.addEventListener("input", handleHomeBgIntensityInput);
     }
 
     async function lookupPreviousBookings() {
